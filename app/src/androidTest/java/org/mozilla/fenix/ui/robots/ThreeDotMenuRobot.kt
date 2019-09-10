@@ -45,9 +45,11 @@ class ThreeDotMenuRobot {
         saveCollectionButton().click()
         mDevice.wait(Until.findObject(By.text("Add new collection")), waitingTime)
     }
+    fun clickAddNewCollection() {
+        addNewCollectionButton().click()
+        mDevice.wait(Until.findObject(By.res("name_collection_edittext")), waitingTime)
+    }
     fun verifyCollectionNameTextField() = assertCollectionNameTextField()
-
-
     fun verifyFindInPageButton() = assertFindInPageButton()
     fun verifyShareDialogTitle() = assertShareDialogTitle()
     fun verifySendToDeviceTitle() = assertSendToDeviceTitle()
@@ -174,6 +176,10 @@ private fun assertShareButton() = shareButton()
 
 private fun saveCollectionButton() = onView(allOf(withText("Save to collection")))
 private fun assertSaveCollectionButton() = saveCollectionButton()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun addNewCollectionButton() = onView(allOf(withText("Add new collection")))
+private fun assertaddNewCollectionButton() = addNewCollectionButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun collectionNameTextField() = onView(allOf(withResourceName("name_collection_edittext")))

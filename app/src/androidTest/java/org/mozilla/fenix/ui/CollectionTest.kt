@@ -24,7 +24,6 @@ import org.mozilla.fenix.ui.robots.navigationToolbar
 
 class CollectionTest {
     /* ktlint-disable no-blank-line-before-rbrace */ // This imposes unreadable grouping.
-
     private val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     private lateinit var mockWebServer: MockWebServer
 
@@ -69,7 +68,9 @@ class CollectionTest {
     }
 
     // Open 3 webpages, and save each of them to a single collection
-    fun CreateCollection() {
+    @Ignore
+    @Test
+    fun CreateCollectionTest() {
         val firstWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
         val secondWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 2)
         val thirdWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 3)
@@ -78,12 +79,19 @@ class CollectionTest {
         }.enterURLAndEnterToBrowser(firstWebPage.url) {
             verifyPageContent(firstWebPage.content)
         }
+        /*
+               navigationToolbar {
+               }.openThreeDotMenu {
 
-        navigationToolbar {
-        }.openThreeDotMenu {
-            // click save to collection menu item
+                   // click save to collection menu item, add new collection
+                   clickSaveCollection()
+                   clickAddNewCollection()
+               }
 
-            // click add new collection
+                   .typeCollectionName("test_collection") {
+                   verifyCollectionSavedPopup()
+               }
+               */
 
             // type in collection name, enter
 
@@ -104,10 +112,6 @@ class CollectionTest {
             // click the collection created
 
             // Check popup for 'Tab Saved!'
-
-        }
-
-
 
     }
 }
