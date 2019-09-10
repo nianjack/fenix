@@ -14,6 +14,8 @@ import org.junit.Ignore
 import org.junit.Test
 import org.mozilla.fenix.helpers.AndroidAssetDispatcher
 import org.mozilla.fenix.helpers.HomeActivityTestRule
+import org.mozilla.fenix.helpers.TestAssetHelper
+import org.mozilla.fenix.ui.robots.navigationToolbar
 
 /**
  *  Tests for verifying basic functionality of history
@@ -66,7 +68,46 @@ class CollectionTest {
         // Delete Collection from the Homescreen
     }
 
+    // Open 3 webpages, and save each of them to a single collection
     fun CreateCollection() {
-        // Open 3 webpages, and save each of them to a single collection
+        val firstWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
+        val secondWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 2)
+        val thirdWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 3)
+
+        navigationToolbar {
+        }.enterURLAndEnterToBrowser(firstWebPage.url) {
+            verifyPageContent(firstWebPage.content)
+        }
+
+        navigationToolbar {
+        }.openThreeDotMenu {
+            // click save to collection menu item
+
+            // click add new collection
+
+            // type in collection name, enter
+
+            // Check popup for 'Tab Saved!'
+
+            // open another URL
+
+            // click save to collection menu item
+
+            // click the collection created
+
+            // Check popup for 'Tab Saved!'
+
+            // open another URL
+
+            // click save to collection menu item
+
+            // click the collection created
+
+            // Check popup for 'Tab Saved!'
+
+        }
+
+
+
     }
 }

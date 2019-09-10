@@ -52,6 +52,11 @@ class BrowserRobot {
                 .check((matches(withText(containsString(expectedText)))))
     }
 
+    fun verifyCollectionSavedPopup() {
+        onView(withId(R.id.counter_text))
+            .check((matches(withText(containsString("Tab saved!")))))
+    }
+
     class Transition {
         private val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
