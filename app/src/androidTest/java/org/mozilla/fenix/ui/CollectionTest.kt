@@ -72,14 +72,14 @@ class CollectionTest {
     @Test
     fun CreateCollectionTest() {
         val firstWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
-        val secondWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 2)
-        val thirdWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 3)
+      //  val secondWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 2)
+       // val thirdWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 3)
 
         navigationToolbar {
         }.enterURLAndEnterToBrowser(firstWebPage.url) {
             verifyPageContent(firstWebPage.content)
         }
-        /*
+
                navigationToolbar {
                }.openThreeDotMenu {
 
@@ -91,8 +91,6 @@ class CollectionTest {
                    .typeCollectionName("test_collection") {
                    verifyCollectionSavedPopup()
                }
-               */
-
             // type in collection name, enter
 
             // Check popup for 'Tab Saved!'
