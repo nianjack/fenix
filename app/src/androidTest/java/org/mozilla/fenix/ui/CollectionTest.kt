@@ -88,9 +88,9 @@ class CollectionTest {
                    clickAddNewCollection()
                }
 
-                   .typeCollectionName("test_collection") {
-                   verifyCollectionSavedPopup()
-               }
+                //   .typeCollectionName("test_collection") {
+             //      verifyCollectionSavedPopup()
+             //  }
             // type in collection name, enter
 
             // Check popup for 'Tab Saved!'
