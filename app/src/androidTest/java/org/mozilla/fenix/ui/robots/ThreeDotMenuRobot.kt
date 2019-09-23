@@ -127,8 +127,15 @@ class ThreeDotMenuRobot {
         fun openWhatsNew(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
             mDevice.wait(Until.findObject(By.text("What's New")), waitingTime)
             whatsNewButton().click()
+
+            BrowserRobot().interact()
+            return BrowserRobot.Transition()
+        }
+
         fun typeCollectionName(name: String, interact: BrowserRobot.() -> Unit): BrowserRobot.Transition  {
-            collectionNameTextField().perform(ViewActions.typeText(name + "\n"))
+            mDevice.pressDelete()
+            collectionNameTextField().perform(ViewActions.typeText(name))
+            mDevice.pressEnter()
 
             BrowserRobot().interact()
             return BrowserRobot.Transition()
@@ -174,7 +181,7 @@ private fun shareButton() = onView(allOf(withText("Share")))
 private fun assertShareButton() = shareButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
-private fun saveCollectionButton() = onView(allOf(withText("Save to collection")))
+private fun saveCollectionButton() = onView(allOf(withText("Save to Collection")))
 private fun assertSaveCollectionButton() = saveCollectionButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 

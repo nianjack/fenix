@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.containsString
 import org.mozilla.fenix.R
 import org.mozilla.fenix.helpers.TestAssetHelper
 import org.mozilla.fenix.helpers.click
+import java.lang.Thread.sleep
 
 class BrowserRobot {
 
@@ -53,6 +54,7 @@ class BrowserRobot {
     }
 
     fun verifyCollectionSavedPopup() {
+        sleep(5000)
         onView(withId(R.id.counter_text))
             .check((matches(withText(containsString("Tab saved!")))))
     }
@@ -84,8 +86,12 @@ fun browserScreen(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
     return BrowserRobot.Transition()
 }
 
-private fun dismissOnboardingButton() = onView(ViewMatchers.withId(R.id.close_onboarding))
+fun dismissTrackingOnboarding() {
+    mDevice.wait(Until.findObject(By.res("close_onboarding")), TestAssetHelper.waitingTime)
+    dismissOnboardingButton().click()
+}
 
+private fun dismissOnboardingButton() = onView(ViewMatchers.withId(R.id.close_onboarding))
 fun navURLBar() = onView(withId(R.id.mozac_browser_toolbar_url_view))
 
 private fun tabsCounter() = onView(withId(R.id.counter_box))

@@ -15,6 +15,7 @@ import org.junit.Test
 import org.mozilla.fenix.helpers.AndroidAssetDispatcher
 import org.mozilla.fenix.helpers.HomeActivityTestRule
 import org.mozilla.fenix.helpers.TestAssetHelper
+import org.mozilla.fenix.ui.robots.dismissTrackingOnboarding
 import org.mozilla.fenix.ui.robots.navigationToolbar
 
 /**
@@ -68,7 +69,6 @@ class CollectionTest {
     }
 
     // Open 3 webpages, and save each of them to a single collection
-    @Ignore
     @Test
     fun CreateCollectionTest() {
         val firstWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
@@ -77,15 +77,18 @@ class CollectionTest {
 
         navigationToolbar {
         }.enterURLAndEnterToBrowser(firstWebPage.url) {
+            dismissTrackingOnboarding()
             verifyPageContent(firstWebPage.content)
         }
-
                navigationToolbar {
                }.openThreeDotMenu {
 
-                   // click save to collection menu item, add new collection
+                   // click save to collection menu item, type collection name
                    clickSaveCollection()
-                   clickAddNewCollection()
+                  // clickAddNewCollection()
+
+               }.typeCollectionName("testcollection") {
+                   verifyCollectionSavedPopup()
                }
 
                 //   .typeCollectionName("test_collection") {
