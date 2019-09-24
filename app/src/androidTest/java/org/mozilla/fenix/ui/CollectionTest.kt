@@ -16,6 +16,7 @@ import org.mozilla.fenix.helpers.AndroidAssetDispatcher
 import org.mozilla.fenix.helpers.HomeActivityTestRule
 import org.mozilla.fenix.helpers.TestAssetHelper
 import org.mozilla.fenix.ui.robots.dismissTrackingOnboarding
+import org.mozilla.fenix.ui.robots.homeScreen
 import org.mozilla.fenix.ui.robots.navigationToolbar
 
 /**
@@ -44,6 +45,8 @@ class CollectionTest {
         mockWebServer.shutdown()
     }
 
+
+/*
     @Ignore
     @Test
     fun AddTabToCollectionTest() {
@@ -67,52 +70,46 @@ class CollectionTest {
     fun DeleteCollectionTest() {
         // Delete Collection from the Homescreen
     }
-
-    // Open 3 webpages, and save each of them to a single collection
+*/
+    // Open 2 webpages, and save each of them to a single collection
     @Test
-    fun CreateCollectionTest() {
+    fun createCollectionTest() {
         val firstWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
-      //  val secondWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 2)
-       // val thirdWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 3)
+        val secondWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 2)
 
         navigationToolbar {
         }.enterURLAndEnterToBrowser(firstWebPage.url) {
-            dismissTrackingOnboarding()
             verifyPageContent(firstWebPage.content)
         }
-               navigationToolbar {
-               }.openThreeDotMenu {
 
-                   // click save to collection menu item, type collection name
-                   clickSaveCollection()
-                  // clickAddNewCollection()
+        navigationToolbar {
+        }.openThreeDotMenu {
+            // click save to collection menu item, type collection name
+            clickSaveCollection()
+        }.typeCollectionName("testcollection_1") {
+            waitForCollectionSavedPopup()
+            mDevice.pressBack();    // go to main page
+        }
 
-               }.typeCollectionName("testcollection") {
-                   verifyCollectionSavedPopup()
-               }
+        navigationToolbar {
+        }.enterURLAndEnterToBrowser(secondWebPage.url) {
+            verifyPageContent(secondWebPage.content)
+        }
 
-                //   .typeCollectionName("test_collection") {
-             //      verifyCollectionSavedPopup()
-             //  }
-            // type in collection name, enter
+        navigationToolbar {
+        }.openThreeDotMenu {
+            // click save to collection menu item, type collection name
+            clickSaveCollection()
+            clickAddNewCollection()
+        }.typeCollectionName("testcollection_2") {
+            waitForCollectionSavedPopup()
+            mDevice.pressBack();    // go to main page
+        }
 
-            // Check popup for 'Tab Saved!'
-
-            // open another URL
-
-            // click save to collection menu item
-
-            // click the collection created
-
-            // Check popup for 'Tab Saved!'
-
-            // open another URL
-
-            // click save to collection menu item
-
-            // click the collection created
-
-            // Check popup for 'Tab Saved!'
-
+        homeScreen {
+            // swipe to bottom until the collections are shown
+            scrollToElementByText("testcollection_1")
+        }
+        // On the main screen, swipe to bottom until the collections are shown
     }
 }

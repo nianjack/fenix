@@ -53,10 +53,9 @@ class BrowserRobot {
                 .check((matches(withText(containsString(expectedText)))))
     }
 
-    fun verifyCollectionSavedPopup() {
-        sleep(5000)
-        onView(withId(R.id.counter_text))
-            .check((matches(withText(containsString("Tab saved!")))))
+    fun waitForCollectionSavedPopup() {
+        mDevice.wait(Until.findObject(By.text("Tab saved!")),
+            TestAssetHelper.waitingTime)
     }
 
     class Transition {

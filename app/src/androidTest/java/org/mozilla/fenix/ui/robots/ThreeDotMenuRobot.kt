@@ -133,9 +133,9 @@ class ThreeDotMenuRobot {
         }
 
         fun typeCollectionName(name: String, interact: BrowserRobot.() -> Unit): BrowserRobot.Transition  {
-            mDevice.pressDelete()
-            collectionNameTextField().perform(ViewActions.typeText(name))
-            mDevice.pressEnter()
+            collectionNameTextField().perform(ViewActions.replaceText(name),
+                ViewActions.pressImeActionButton()
+            )
 
             BrowserRobot().interact()
             return BrowserRobot.Transition()

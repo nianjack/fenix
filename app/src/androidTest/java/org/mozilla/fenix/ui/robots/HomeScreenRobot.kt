@@ -75,7 +75,7 @@ class HomeScreenRobot {
 
     fun verifyExistingTabList() = assertExistingTabList()
 
-    private fun scrollToElementByText(text: String): UiScrollable {
+    fun scrollToElementByText(text: String): UiScrollable {
         val appView = UiScrollable(UiSelector().scrollable(true))
         appView.scrollTextIntoView(text)
         return appView
