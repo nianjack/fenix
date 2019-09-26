@@ -4,9 +4,13 @@
 
 package org.mozilla.fenix.ui
 
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import okhttp3.mockwebserver.MockWebServer
+import org.hamcrest.CoreMatchers
 import org.junit.Rule
 import org.junit.Before
 import org.junit.After
@@ -46,42 +50,54 @@ class CollectionTest {
     }
 
 
-/*
     @Ignore
     @Test
+    // open a webpage, and add currently opened tab to existing collection
     fun AddTabToCollectionTest() {
-        // open a webpage, and add currently opened tab to existing collection
-    }
+        // Open a webpage and save to collection "testcollection_1"
 
-    @Ignore
-    @Test
-    fun OpenTabFromCollectionTest() {
-        // Open one tab from Collection in the Homescreen view
-    }
+        // On homeview, open another webpage
 
-    @Ignore
-    @Test
-    fun RenameCollectionTest() {
+        // Save the current page to the testcollection_1
+
+        // On homeview, open the first saved page
+
+        // On homeview, open the second saved page
+
+    }
+    /*
+        @Ignore
+        @Test
         // Rename Collection from the Homescreen
-    }
+        fun RenameCollectionTest() {
+            // Open a webpage and save to collection "testcollection_1"
 
-    @Ignore
-    @Test
-    fun DeleteCollectionTest() {
+            // On homeview, tap the 3-dot button to expand, select rename
+
+            // Rename collection, save
+
+            // Verify the new name is displayed on homeview
+
+        }
+
+        @Ignore
+        @Test
         // Delete Collection from the Homescreen
-    }
-*/
+        fun DeleteCollectionTest() {
+
+        }
+    */
     // Open 2 webpages, and save each of them to a single collection
     @Test
     fun createCollectionTest() {
         val firstWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
         val secondWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 2)
 
+        // Open a webpage and save to collection "testcollection_1"
         navigationToolbar {
         }.enterURLAndEnterToBrowser(firstWebPage.url) {
             verifyPageContent(firstWebPage.content)
         }
-
         navigationToolbar {
         }.openThreeDotMenu {
             // click save to collection menu item, type collection name
@@ -91,11 +107,11 @@ class CollectionTest {
             mDevice.pressBack();    // go to main page
         }
 
+        // Open a different webpage and save to collection "testcollection_2"
         navigationToolbar {
         }.enterURLAndEnterToBrowser(secondWebPage.url) {
             verifyPageContent(secondWebPage.content)
         }
-
         navigationToolbar {
         }.openThreeDotMenu {
             // click save to collection menu item, type collection name
@@ -106,10 +122,17 @@ class CollectionTest {
             mDevice.pressBack();    // go to main page
         }
 
+        // On the main screen, swipe to bottom until the collections are shown
         homeScreen {
             // swipe to bottom until the collections are shown
+            verifyHomeScreen()
             scrollToElementByText("testcollection_1")
+            Espresso.onView(ViewMatchers.withText("testcollection_2"))
+                .check(ViewAssertions
+                    .matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+            Espresso.onView(ViewMatchers.withText("testcollection_1"))
+                .check(ViewAssertions
+                    .matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
         }
-        // On the main screen, swipe to bottom until the collections are shown
     }
 }
